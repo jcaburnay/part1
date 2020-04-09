@@ -11,6 +11,34 @@ const Button = ({ handleClick, text }) => {
   )
 }
 
+const Statistics = ({ good, neutral, bad }) => {
+  const totalScore = good + neutral + bad
+  const averageScore = () => {
+    let rawAve = (good - bad) / totalScore
+    let Ave = rawAve.toFixed(2)
+    return Ave
+  }
+  const positive = () => {
+    let unrounded = ( good / totalScore ) * 100
+    let roundedPositive = Math.round(unrounded)
+    return roundedPositive
+  }
+
+  return (
+    <>
+      <div>
+        Total: {totalScore}
+      </div>
+      <div>
+        Average: {averageScore()}
+      </div>
+      <div>
+        Positive: {positive()} %
+      </div>
+    </>
+  )
+}
+
 const App = props => {
   const [ good, setGood ] = useState(0)
   const [ neutral, setNeutral ] = useState(0)
@@ -19,10 +47,7 @@ const App = props => {
   const handleClickGood = () => setGood(good + 1)
   const handleClickNeutral = () => setNeutral(neutral + 1)
   const handleClickBad = () => setBad(bad + 1)
-
-  const total = good + neutral + bad
-  const average = (good - bad)/total
-  const positive = (good/total)*100
+  
   return (
     <div>
       <h1>give us your feedback</h1>
@@ -34,9 +59,7 @@ const App = props => {
       <Display counter={neutral} text='NEUTRAL' />
       <Display counter={bad} text='BAD' />
       <br />
-      <p>Total: {total}</p>
-      <p>Average: {average.toFixed(2)}</p>
-      <p>Positive: {Math.round(positive)} %</p>
+      <Statistics good={good} neutral={neutral} bad={bad}/>
     </div>
     
   )
