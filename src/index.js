@@ -20,6 +20,9 @@ const App = props => {
   const handleClickNeutral = () => setNeutral(neutral + 1)
   const handleClickBad = () => setBad(bad + 1)
 
+  const total = good + neutral + bad
+  const average = (good - bad)/total
+  const positive = (good/total)*100
   return (
     <div>
       <h1>give us your feedback</h1>
@@ -30,6 +33,10 @@ const App = props => {
       <Display counter={good} text='GOOD' />
       <Display counter={neutral} text='NEUTRAL' />
       <Display counter={bad} text='BAD' />
+      <br />
+      <p>Total: {total}</p>
+      <p>Average: {average.toFixed(2)}</p>
+      <p>Positive: {Math.round(positive)} %</p>
     </div>
     
   )
