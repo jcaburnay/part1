@@ -1,54 +1,38 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 
-const Header = props => (
-  <h1>{props.name}</h1>
-)
+const Display = ({ counter, text }) => <div>{text}: {counter}</div>
 
-const Content = props => (
-  <div>
-    <Part part={props.parts[0]} />
-    <Part part={props.parts[1]} />
-    <Part part={props.parts[2]} />
-  </div>
-)
-
-const Part = props => (
-  <div>
-    <p>{props.part.name}: {props.part.exercises}</p>
-  </div>
-)
-
-const Total = props => (
-  <p>Total number of exercises: {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises}</p>
-)
-
-
-const App = () => {
-  const course = {
-    name: 'Half Stack Application Development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7
-      },
-      {
-        name: 'State of a component',
-        exercises: 14
-      }
-    ]
-  }
+const Button = ({ handleClick, text }) => {
   return (
-    <div>
-      <Header name={course.name} />
-      <Content parts={course.parts}/>
-      <Total parts={course.parts}/>
-    </div>
+    <button onClick={handleClick}>
+      {text}
+    </button>
   )
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+const App = props => {
+  const [ good, setGood ] = useState(0)
+  const [ neutral, setNeutral ] = useState(0)
+  const [ bad, setBad ] = useState(0)
+
+  const handleClickGood = () => setGood(good + 1)
+  const handleClickNeutral = () => setNeutral(neutral + 1)
+  const handleClickBad = () => setBad(bad + 1)
+
+  return (
+    <div>
+      <h1>give us your feedback</h1>
+      <Button handleClick={handleClickGood} text='GOOD' />
+      <Button handleClick={handleClickNeutral} text='NEUTRAL' />
+      <Button handleClick={handleClickBad} text='BAD' />
+      <h2>statistics</h2>
+      <Display counter={good} text='GOOD' />
+      <Display counter={neutral} text='NEUTRAL' />
+      <Display counter={bad} text='BAD' />
+    </div>
+    
+  )
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
