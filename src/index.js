@@ -33,7 +33,7 @@ const Statistics = ({ good, neutral, bad }) => {
         Neutral: {neutral}
       </div>
       <div>
-        Bad: {bad} %
+        Bad: {bad}
       </div>
       <br />
       <div>
