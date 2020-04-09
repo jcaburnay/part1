@@ -3,8 +3,15 @@ import ReactDOM from 'react-dom';
 
 const Button = ({ handleClick, text }) => <button onClick={handleClick}>{text}</button>
   
-const Statistic = ({ text, value }) => <div>{text}: {value}</div>
-
+const Statistic = ({ text, value }) => {
+  return (
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
+  )
+}
+    
 const Statistics = ({ good, neutral, bad }) => {
   const totalScore = good + neutral + bad
   const averageScore = () => {
@@ -21,15 +28,16 @@ const Statistics = ({ good, neutral, bad }) => {
     return 'no given feedback yet'
   }
   return (
-    <>
-      <Statistic text='Good' value={good} />
-      <Statistic text='Neutral' value={neutral} />
-      <Statistic text='Bad' value={bad} />
-      <br />
-      <Statistic text='Total' value={totalScore} />
-      <Statistic text='Average' value={averageScore()} />
-      <Statistic text='Positive (%)' value={positive()} />
-    </>
+    <table>
+      <tbody>
+      <Statistic text='Good:' value={good} />
+      <Statistic text='Neutral:' value={neutral} />
+      <Statistic text='Bad:' value={bad} />
+      <Statistic text='Total:' value={totalScore} />
+      <Statistic text='Average:' value={averageScore()} />
+      <Statistic text='Positive (%):' value={positive()} />
+      </tbody>
+    </table>
   )
 }
 
@@ -51,7 +59,6 @@ const App = props => {
       <h2>statistics</h2>
       <Statistics good={good} neutral={neutral} bad={bad}/>
     </div>
-    
   )
 }
 
